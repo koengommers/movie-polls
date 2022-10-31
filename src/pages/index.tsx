@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Movie Voting</title>
+        <title>Movie Polls</title>
         <meta name="description" content="Make a movie poll" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
