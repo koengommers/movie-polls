@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Button from '../components/Button'
 import MoviePicker from '../components/MoviePicker'
@@ -8,11 +9,16 @@ import { Movie } from '../tmdb'
 import { trpc } from '../utils/trpc'
 
 const Home: NextPage = () => {
+  const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
   const [question, setQuestion] = useState('')
   const [movies, setMovies] = useState<Movie[]>([])
   /* const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]); */
-  const mutation = trpc.useMutation(['poll.create'])
+  const mutation = trpc.useMutation(['poll.create'], {
+    onSuccess: (id) => {
+      router.push(`/share/${id}`)
+    },
+  })
   const createPoll = async () => {
     mutation.mutate({
       question,
@@ -72,7 +78,7 @@ const Home: NextPage = () => {
       </div>
       <div className="mt-16 flex flex-col items-center">
         <Button disabled={movies.length < 2} onClick={createPoll}>
-          Start poll
+          {mutation.isLoading ? 'Creating...' : 'Create poll'}
         </Button>
       </div>
     </>

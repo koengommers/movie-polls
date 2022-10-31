@@ -20,7 +20,7 @@ export const pollRouter = createRouter()
       movies: z.number().int().array().min(2),
     }),
     resolve: async ({ ctx, input }) => {
-      return await ctx.prisma.poll.create({
+      const poll = await ctx.prisma.poll.create({
         data: {
           question: input.question,
           movies: {
@@ -30,5 +30,6 @@ export const pollRouter = createRouter()
           }
         },
       })
+      return poll.id
     },
   })
