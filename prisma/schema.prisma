@@ -26,6 +26,7 @@ model Movie {
   votes  Vote[]
 
   @@id([id, pollId])
+  @@index([pollId])
 }
 
 model Vote {
@@ -33,4 +34,6 @@ model Vote {
   movie       Movie  @relation(fields: [movieId, moviePollId], references: [id, pollId])
   movieId     Int
   moviePollId String
+
+  @@index([movieId, moviePollId])
 }
