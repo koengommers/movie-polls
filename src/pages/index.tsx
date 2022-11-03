@@ -13,7 +13,6 @@ const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [question, setQuestion] = useState('')
   const [movies, setMovies] = useState<Movie[]>([])
-  /* const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]); */
   const mutation = trpc.useMutation(['poll.create'], {
     onSuccess: (id) => {
       router.push(`/share/${id}`)

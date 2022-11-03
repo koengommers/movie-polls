@@ -42,3 +42,13 @@ export const useSearch = (query: string) => {
     }
   )
 }
+
+export const useMovie = (id: number) => {
+  return useQuery(
+    ['getMovie', id],
+    async () => {
+      const response = await fetchTmdb(`movie/${id}`)
+      return movieValidator.parse(response)
+    }
+  )
+}
